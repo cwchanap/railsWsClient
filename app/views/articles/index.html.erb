@@ -1,17 +1,19 @@
 
 <h1>Listing articles</h1>
  
-<table>
+<table class="table">
   <tr>
     <th>Title</th>
-    <th></th>
+    <th>Status</th>
   </tr>
  
   <% @articles.each do |article| %>
     <tr>
-      <td><%= article.title %></td>
+      <td width="75%"><%= article.title %></td>
+      <td><%= (article.status == true) ? 'Open' : 'Closed' %></td>
       <td><%= link_to 'Show', article_path(article) %></td>
       <td><%= link_to 'Edit', edit_article_path(article) %></td>
+      <td><%= link_to (article.status == true) ? 'Close' : 'Open', article_toggle_path(article) %></td>      
       <td><%= link_to 'Delete', article_path(article), method: :delete  %></td>
     </tr>
   <% end %>
