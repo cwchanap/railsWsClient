@@ -1,18 +1,51 @@
 
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
- 
-<p>
-  <strong>Text:</strong>
-  <%= @article.text %>
-</p>
+<table class="table">
 
-<p>
-  <strong>Status:</strong>
-  <%= @article.status %>
-</p>
+  <tr><td>
+    <strong>Title:</strong>
+    <%= @article.title %>
+  </td></tr>
+  
+  <tr><td>
+    <strong>Text:</strong>
+    <%= @article.text %>
+  </td></tr>
+
+  <tr><td>
+    <strong>Status:</strong>
+    <%= (@article.status == true) ? 'Open' : 'Closed' %>
+  </td></tr>
+
+  <tr><td>
+    <h4>Comments</h4>
+    <%= render @article.comments %>
+  </td></tr>
+
+  <% if @article.status %>
+    <table class="table">
+      <tr><th>
+        <h3>Add a comment:</h3>
+      </th></tr>
+      <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+        <tr><td>
+          <%= form.label :commenter %><br>
+          <%= form.text_field :commenter %>
+        </tr></td>
+        <tr><td>
+          <%= form.label :body %><br>
+          <%= form.text_area :body %>
+        </tr></td>
+        <td>
+          <%= form.submit %>
+        </td>
+      <% end %>
+    </table>
+  <% else %>
+    <tr><td>
+      <h2>article is closed</h2>
+    </td></tr>
+  <% end %> 
+</table>
 
 <%= link_to 'Edit', edit_article_path() %>
 <%= link_to 'Back', articles_path %>

@@ -16,21 +16,29 @@
       </ul>
     </div>
   <% end %>
- 
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
- 
-  <p>
-    <%= form.label :text %><br>
-    <%= form.text_area :text %>
-  </p>
- 
-  <p>
-    <%= form.submit %>
-  </p>
- 
+
+  <table class="table">
+    <% if @article.status %>
+      <tr><td>
+        <%= form.label :title %><br>
+        <%= form.text_field :title, size: '150' %>
+      </td></tr>
+    
+      <tr><td>
+        <%= form.label :text %><br>
+        <%= form.text_area :text, size: "150x20" %>
+      </td></tr>
+    
+      <td>
+        <%= form.submit %>
+      </td>
+    <% else %>  
+      <tr><td>
+        <h2>article is closed</h2>
+      </td></tr>
+    <% end %>
+  </table>
+
 <% end %>
  
 <%= link_to 'Back', articles_path %>

@@ -20,6 +20,16 @@ class ArticlesController < ApplicationController
         end
     end
 
+    def toggle
+        @article = Article.find(params[:article_id])
+       
+        if @article.update(status: !@article.status)
+            redirect_to articles_path
+        else
+            render 'show'
+        end
+    end
+
     def show
         @article = Article.find(params[:id])
     end
