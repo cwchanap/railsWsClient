@@ -18,7 +18,7 @@
 
   <tr><td>
     <h4>Comments</h4>
-    <%= render @article.comments %>
+    <%= render partial: "/comments/comment", collection: @article.comments %>
   </td></tr>
 
   <% if @article.status %>
