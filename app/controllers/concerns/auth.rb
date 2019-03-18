@@ -1,4 +1,4 @@
-module ApplicationHelper
+module Auth
     def auth()
         if cookies[:username] == nil
             redirect_to root_path()

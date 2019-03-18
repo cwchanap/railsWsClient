@@ -3,16 +3,12 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ -> 
-    $('#login').on('ajax:success', (event) -> 
+    $('#signUp').on('ajax:success', (event) -> 
         [data, status, xhr] = event.detail
         if data.error == true
-            $('#loginMsg').html(data.message).addClass('alert alert-danger')
+            $('#signUpMsg').html(data.message).addClass('alert alert-danger')
     ).on('ajax:error', (event) ->
         console.log("Error in request")
         [data, status, xhr] = event.detail
-        $('#loginMsg').html(data).addClass('alert alert-danger')
-    )
-
-    $('#signUpBtn').on('click', (event) -> 
-        window.location =  "/user/new/" 
+        $('#signUpMsg').html(data).addClass('alert alert-danger')
     )

@@ -10,7 +10,7 @@
     <th scope="col"></th>
     <th scope="col"></th>
   </tr></thead>
- 
+
   <% @articles.each do |article| %>
     <tr>
       <td width="75%"><%= article.title %></td>
@@ -23,5 +23,5 @@
   <% end %>
 </table>
 
-<%= link_to 'Add', new_article_path() , class: "btn btn-primary"%>
-<%= link_to 'Back', root_path() , class: "btn btn-info"%>
+<%= link_to 'Add New Article', new_article_path , class: "btn btn-primary"%><br><br>
+<%= button_to 'LogOut', login_destroy_path, class: "btn btn-info", method: 'delete' %>
