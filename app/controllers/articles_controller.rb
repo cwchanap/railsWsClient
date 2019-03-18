@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+    include Auth    
+    before_action :auth
+
     def new
     end
 

@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-4 offset-md-4">
     <h1>Login</h1><br>
-    <%= form_for(:user, url: login_new_path) do |f| %>
+    <%= form_with(model: User.new, url: login_new_path, id: 'login') do |f| %>
 
       <%= f.label :username %>
       <%= f.text_field :username, class: 'form-control' %><br>
@@ -10,10 +10,13 @@
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %><br>
 
-      <%= f.submit "Log in", class: "btn btn-primary" %>
-      <% flash.each do |message| %>
-        <div class="alert"><%= message %></div>
-      <% end %>
+      <%= f.submit "Log in", class: "btn btn-primary col-md-3" %>
+
+      <%= button_tag "Sign Up", type: "button", class: "btn btn-primary col-md-3", id: "signUpBtn" %>
     <% end %>
+
+    <br>
+    <div id='loginMsg'></div>
   </div>
+
 </div>
