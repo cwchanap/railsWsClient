@@ -13,7 +13,9 @@
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %><br>
 
-      <%= f.submit "Sign Up", class: "btn btn-primary col-md-3" %>
+      <%= f.submit "Sign Up", class: "btn btn-primary" %>
+
+      <%= button_tag "Back", type: "button", class: "btn btn-primary", onclick: "redirect('#{root_path}')" %>
 
     <% end %>
 

@@ -1,27 +1,39 @@
 
-<h1>Listing articles</h1>
- 
-<table class="table">
-  <thead class="thead-dark"><tr>
-    <th scope="col">Title</th>
-    <th scope="col">Status</th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-  </tr></thead>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Listing articles</h1>
+    </div>
+    <div class="col">
+      <div class="float-right"><%= link_to 'Admin Page', articles_path, class: "btn btn-info" if isAdmin %></div>
+    </div>
+  </div>
 
-  <% @articles.each do |article| %>
-    <tr>
-      <td width="75%"><%= article.title %></td>
-      <td><%= (article.status == true) ? 'Open' : 'Closed' %></td>
-      <td><%= link_to 'Show', article_path(article) , class: "btn btn-primary" %></td>
-      <td><%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary"  %></td>
-      <td><%= link_to (article.status == true) ? 'Close' : 'Open', article_toggle_path(article), class: "btn btn-primary"  %></td>      
-      <td><%= link_to 'Delete', article_path(article), method: :delete, class: "btn btn-primary"   %></td>
-    </tr>
-  <% end %>
-</table>
+  <div class="row-md">
+    <table class="table">
+      <thead class="thead-dark"><tr>
+        <th scope="col">Title</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr></thead>
 
-<%= link_to 'Add New Article', new_article_path , class: "btn btn-primary"%><br><br>
-<%= button_to 'LogOut', login_destroy_path, class: "btn btn-info", method: 'delete' %>
+      <% @articles.each do |article| %>
+        <tr>
+          <td width="75%"><%= article.title %></td>
+          <td width="5%"><%= (article.status == true) ? 'Open' : 'Closed' %></td>
+          <td width="5%"><%= link_to 'Show', article_path(article) , class: "btn btn-primary" %></td>
+          <td width="5%"><%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary"  %></td>
+          <td width="5%"><%= link_to (article.status == true) ? 'Close' : 'Open', article_toggle_path(article), class: "btn btn-primary" if isAdmin %></td>      
+          <td width="5%"><%= link_to 'Delete', article_path(article), method: :delete, class: "btn btn-primary" if isAdmin %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <%= link_to 'Add New Article', new_article_path , class: "btn btn-primary"%><br><br>
+  <%= link_to 'LogOut', login_destroy_path, class: "btn btn-info", method: 'delete' %>
+
+</div>

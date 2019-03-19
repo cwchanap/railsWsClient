@@ -6,6 +6,7 @@ class LoginController < ApplicationController
             render :json => {:error => true, :message => "invalid User"}
         else
             cookies[:username] = @user.username
+            session[:curr_userid] = @user.id
             redirect_to articles_path()
         end
     end
@@ -15,6 +16,7 @@ class LoginController < ApplicationController
 
     def destroy
         cookies.delete(:username)
+        session[:curr_userid] = nil
         redirect_to root_path()
     end
 

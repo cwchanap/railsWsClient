@@ -12,7 +12,3 @@ $ ->
         [data, status, xhr] = event.detail
         $('#loginMsg').html(data).addClass('alert alert-danger')
     )
-
-    $('#signUpBtn').on('click', (event) -> 
-        window.location =  "/user/new/" 
-    )

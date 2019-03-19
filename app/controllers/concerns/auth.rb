@@ -1,6 +1,6 @@
 module Auth
     def auth()
-        if cookies[:username] == nil
+        if session[:curr_userid] == nil
             redirect_to root_path()
         end
     end
