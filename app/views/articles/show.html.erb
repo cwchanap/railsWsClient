@@ -1,5 +1,5 @@
 
-<table class="table">
+<table class="table table-striped">
 
   <tr><td>
     <strong>Title:</strong>
@@ -20,32 +20,19 @@
     <h4>Comments</h4>
     <%= render partial: "/comments/comment", collection: @article.comments %>
   </td></tr>
-
-  <% if @article.status %>
-    <table class="table">
-      <tr><th>
-        <h3>Add a comment:</h3>
-      </th></tr>
-      <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
-        <tr><td>
-          <%= form.label :commenter %><br>
-          <%= form.text_field :commenter %>
-        </tr></td>
-        <tr><td>
-          <%= form.label :body %><br>
-          <%= form.text_area :body %>
-        </tr></td>
-        <td>
-          <%= form.submit %>
-        </td>
-      <% end %>
-    </table>
-  <% else %>
-    <tr><td>
-      <h2>article is closed</h2>
-    </td></tr>
-  <% end %> 
 </table>
 
-<%= link_to 'Edit', edit_article_path() %>
-<%= link_to 'Back', articles_path %>
+<div class="row">
+  <% if @article.status %>
+    <div class="col"><%= button_to 'Add a comment', new_article_comment_path(@article.id), class: "btn btn-info", method: 'get' %></div>
+  <% else %>
+    <div class="col-md-3 offset-md-4"><h1>Article is closed</h1></div>
+  <% end %> 
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <%= button_tag 'Edit', type: 'button', class: "btn btn-info", onclick: "redirect('#{edit_article_path}')" %>
+    <%= button_tag 'Back', type: 'button', class: "btn btn-info", onclick: "redirect('#{articles_path}')"%>
+  </div>  
+</div>
