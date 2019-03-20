@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   post 'login/new'
   delete 'login/destroy'
 
+  get 'admin/index'
+
   resources :articles do
       resources :comments
       get 'toggle' => 'articles#toggle'
