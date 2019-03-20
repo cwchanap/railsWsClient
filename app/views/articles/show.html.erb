@@ -1,38 +1,43 @@
+<div class="container">
+  <table class="table table-striped">
 
-<table class="table table-striped">
+    <tr><td>
+      <strong>Title:</strong>
+      <%= @article.title %>
+      <div class='float-right'>
+        <strong>Post Time:</strong>
+        <%= @article.created_at %>
+      </div>
+    </td></tr>
+    
+    <tr><td>
+      <strong>Text:</strong>
+      <%= @article.text %>
+    </td></tr>
 
-  <tr><td>
-    <strong>Title:</strong>
-    <%= @article.title %>
-  </td></tr>
-  
-  <tr><td>
-    <strong>Text:</strong>
-    <%= @article.text %>
-  </td></tr>
+    <tr><td>
+      <strong>Status:</strong>
+      <%= (@article.status == true) ? 'Open' : 'Closed' %>
+    </td></tr>
 
-  <tr><td>
-    <strong>Status:</strong>
-    <%= (@article.status == true) ? 'Open' : 'Closed' %>
-  </td></tr>
+    <tr><td>
+      <h4>Comments</h4>
+      <%= render partial: "/comments/comment", collection: @article.comments %>
+    </td></tr>
+  </table>
 
-  <tr><td>
-    <h4>Comments</h4>
-    <%= render partial: "/comments/comment", collection: @article.comments %>
-  </td></tr>
-</table>
-
-<div class="row">
-  <% if @article.status %>
-    <div class="col"><%= button_to 'Add a comment', new_article_comment_path(@article.id), class: "btn btn-info", method: 'get' %></div>
-  <% else %>
-    <div class="col-md-3 offset-md-4"><h1>Article is closed</h1></div>
-  <% end %> 
-</div>
-<br>
-<div class="row">
-  <div class="col">
-    <%= button_tag 'Edit', type: 'button', class: "btn btn-info", onclick: "redirect('#{edit_article_path}')" %>
-    <%= button_tag 'Back', type: 'button', class: "btn btn-info", onclick: "redirect('#{articles_path}')"%>
-  </div>  
+  <div class="row">
+    <% if @article.status %>
+      <div class="col"><%= button_to 'Add a comment', new_article_comment_path(@article.id), class: "btn btn-info", method: 'get' %></div>
+    <% else %>
+      <div class="col-md-3 offset-md-4"><h1>Article is closed</h1></div>
+    <% end %> 
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+      <%= button_tag 'Edit', type: 'button', class: "btn btn-info", onclick: "redirect('#{edit_article_path}')" %>
+      <%= button_tag 'Back', type: 'button', class: "btn btn-info", onclick: "redirect('#{articles_path}')"%>
+    </div>  
+  </div>
 </div>

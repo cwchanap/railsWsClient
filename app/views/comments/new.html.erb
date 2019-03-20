@@ -8,10 +8,6 @@
         </th></tr>
         <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
             <tr><td>
-            <%= form.label :commenter %><br>
-            <%= form.text_field :commenter, size: "48" %>
-            </tr></td>
-            <tr><td>
             <%= form.label :body %><br>
             <%= form.text_area :body, size: "50x10" %>
             </tr></td>
