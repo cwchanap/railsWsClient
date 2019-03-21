@@ -30,7 +30,7 @@
     <% if @article.status %>
       <div class="col"><%= button_to 'Add a comment', new_article_comment_path(@article.id), class: "btn btn-info", method: 'get' %></div>
     <% else %>
-      <div class="col-md-3 offset-md-4"><h1>Article is closed</h1></div>
+      <div class="col offset-md-4"><h1>Article is closed</h1></div>
     <% end %> 
   </div>
   <br>

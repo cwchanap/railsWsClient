@@ -6,8 +6,9 @@ class ArticlesController < ApplicationController
     end
 
     def create
+        
         @user = User.find_by_id(session[:curr_userid])
-        @article = @user.articles.create(article_params)
+        @article = @user.articles.create!(article_params)
         @article.status = true
 
         @article.save
