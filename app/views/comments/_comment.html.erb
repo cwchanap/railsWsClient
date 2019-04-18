@@ -2,6 +2,10 @@
   <tr><td>
     <strong>Commenter:</strong>
     <%= getUserName(@article.user_id) %>
+    <div class='float-right'>
+      <strong>Post Time:</strong>
+      <%= changeTZ(comment.created_at) %>
+    </div>    
   </tr></td>
 
   <tr><td>

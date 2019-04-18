@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   delete 'login/destroy'
 
   get 'admin/index'
+  get 'heaven' => 'main#heaven'
 
   resources :articles do
       resources :comments

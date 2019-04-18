@@ -6,13 +6,17 @@
       <%= @article.title %>
       <div class='float-right'>
         <strong>Post Time:</strong>
-        <%= @article.created_at %>
+        <%= changeTZ(@article.created_at) %>
       </div>
     </td></tr>
     
     <tr><td>
       <strong>Text:</strong>
       <%= @article.text %>
+      <div class='float-right'>
+        <strong>Last Updated Time:</strong>
+        <%= changeTZ(@article.updated_at) %>
+      </div>      
     </td></tr>
 
     <tr><td>
