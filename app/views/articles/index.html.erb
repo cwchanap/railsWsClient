@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row">
     <div class="col">
@@ -27,7 +26,7 @@
           <td width="5%"><%= getUserName(article.user_id) %></td>
           <td width="5%"><%= (article.status) ? 'Open' : 'Closed' %></td>
           <td width="5%"><%= link_to 'Show', article_path(article) , class: "btn btn-primary" %></td>
-          <td width="5%"><%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary"  %></td>
+          <td width="5%"><%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" if (isAdmin || isUserMatch(article.user_id)) %></td>
           <td width="5%"><%= link_to (article.status) ? 'Close' : 'Open', article_toggle_path(article), class: "btn btn-primary" if isAdmin %></td>      
           <td width="5%"><%= link_to 'Delete', article_path(article), method: :delete, class: "btn btn-primary" if (isAdmin || isUserMatch(article.user_id)) %></td>
         </tr>
@@ -36,6 +35,7 @@
   </div>
 
   <%= link_to 'Add New Article', new_article_path , class: "btn btn-primary"%><br><br>
+  <%= button_tag "To heaven", type: "button", class: "btn btn-primary", onclick: "redirect('/heaven')" %><br><br>
   <%= link_to 'LogOut', login_destroy_path, class: "btn btn-info", method: 'delete' %>
 
 </div>
