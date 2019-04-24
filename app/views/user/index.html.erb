@@ -11,19 +11,19 @@
         <th scope="col">User</th>
         <th scope="col"></th>        
         <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
+        <th scope="col">Email</th>
+        <th scope="col">isVerified</th>
         <th scope="col"></th>
       </tr></thead>
 
       <% @users.each do |user| %>
         <% if user.username != 'admin' %>
           <tr>
-            <td width="75%"><%= user.username %></td>
+            <td width="70%"><%= user.username %></td>
             <td width="5%"></td>
             <td width="5%"></td>
-            <td width="5%"></td>
-            <td width="5%"></td>      
+            <td width="10%"><%= user.email %></td>
+            <td width="5%"><%= user.isValidate %></td>      
             <td width="5%"><%= link_to 'Delete', user_path(user), method: :delete, class: "btn btn-primary"  %></td>
           </tr>
         <% end %>

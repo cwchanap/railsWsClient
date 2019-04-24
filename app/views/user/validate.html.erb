@@ -1,0 +1,18 @@
+
+<div class="container">
+  <br>
+  <br>
+  <div class="row">
+    <div class="col">
+      <% if @user %>
+        Hello, <strong><%= @user.username %></strong><br><br>
+        Your Email Address has been verified<br><br>
+      <% else %>
+        <h1>Do not play with this holy website</h1><br><br>
+      <% end %>
+    </div>
+  </div>
+
+  <%= link_to 'Back to Login Page', root_path, class: "btn btn-info"%>
+
+</div>
