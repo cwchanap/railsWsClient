@@ -1,9 +1,11 @@
 // Canvas game logic
 document.addEventListener('DOMContentLoaded', () => {
-  const canvas = document.getElementById("myCanvas");
+  const canvas = document.getElementById("myCanvas") as HTMLCanvasElement | null;
   if (!canvas) return;
 
   const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
   const ball_radius = 20;
   const paddleHeight = 10;
   const paddleWidth = 200;
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let dx = 15;
   let dy = 10;
 
-  const resizeCanvas = () => {
+  const resizeCanvas = (): void => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight - 20;
 
@@ -31,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const drawBall = () => {
+  const drawBall = (): void => {
     ctx.beginPath();
     ctx.arc(x, y, ball_radius, 0, Math.PI * 2, false);
     ctx.fillStyle = "green";
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.closePath();
   };
 
-  const drawPaddle = () => {
+  const drawPaddle = (): void => {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
     ctx.fillStyle = "#0095DD";
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.closePath();
   };
 
-  const draw = () => {
+  const draw = (): void => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     y += dy;
   };
 
-  const paddleHandler = (e, value) => {
+  const paddleHandler = (e: KeyboardEvent, value: boolean): void => {
     if (e.key === "Right" || e.key === "ArrowRight") {
       rightPressed = value;
     } else if (e.key === "Left" || e.key === "ArrowLeft") {
@@ -77,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const keyDownHandler = (e) => paddleHandler(e, true);
-  const keyUpHandler = (e) => paddleHandler(e, false);
+  const keyDownHandler = (e: KeyboardEvent): void => paddleHandler(e, true);
+  const keyUpHandler = (e: KeyboardEvent): void => paddleHandler(e, false);
 
   window.addEventListener('resize', resizeCanvas, false);
   window.addEventListener("keydown", keyDownHandler, false);

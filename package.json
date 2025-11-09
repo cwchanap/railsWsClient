@@ -1,5 +1,16 @@
 {
   "name": "railsWsClient",
   "private": true,
-  "dependencies": {}
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "esbuild": "^0.27.0",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/application.ts --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.20"
+  }
 }
