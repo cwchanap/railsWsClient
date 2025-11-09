@@ -1,8 +1,8 @@
 // Entry point for the build script
 import "@hotwired/turbo-rails"
-import "./controllers"
+import "../controllers"
 
 // Import custom TypeScript modules
-import "./login"
-import "./user"
-import "./main"
+import "../login"
+import "../user"
+import "../main"
