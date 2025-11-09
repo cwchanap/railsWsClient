@@ -10,8 +10,8 @@ gem 'puma', '>= 5.0'
 # The modern asset pipeline for Rails
 gem 'sprockets-rails'
 
-# Use JavaScript with esbuild for TypeScript support
-gem 'jsbundling-rails'
+# Use Vite for modern frontend tooling with TypeScript support
+gem 'vite_rails'
 
 # Hotwire's SPA-like page accelerator
 gem 'turbo-rails'
