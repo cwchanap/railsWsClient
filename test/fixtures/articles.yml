@@ -4,8 +4,10 @@ one:
   title: MyString
   text: MyText
   status: false
+  user: one
 
 two:
   title: MyString
   text: MyText
   status: false
+  user: two

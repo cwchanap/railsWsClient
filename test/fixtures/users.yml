@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  username: MyString
-  password: 
+  username: user_one
+  password: password123
+  email: user_one@example.com
+  isValidate: true
 
 two:
-  username: MyString
-  password: 
+  username: user_two
+  password: password456
+  email: user_two@example.com
+  isValidate: true 
