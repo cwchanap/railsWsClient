@@ -10,8 +10,8 @@ gem 'puma', '>= 5.0'
 # The modern asset pipeline for Rails
 gem 'sprockets-rails'
 
-# Use JavaScript with ESM import maps
-gem 'importmap-rails'
+# Use JavaScript with esbuild for TypeScript support
+gem 'jsbundling-rails'
 
 # Hotwire's SPA-like page accelerator
 gem 'turbo-rails'
