@@ -2,23 +2,29 @@ require "base64"
 require "openssl"
 
 module Crypto
-    def encrypt(data)
-        secret = Rails.application.config_for :secrets
-
-        cipher = OpenSSL::Cipher::AES128.new(:CBC).encrypt
-        cipher.key = Base64.decode64(secret['aes_key'])
-        cipher.iv = Base64.decode64(secret['aes_iv'])
+  extend ActiveSupport::Concern
+  
+  included do
+    # Access encryption methods
+  end
+  
+  def encrypt(data)
+    credentials = Rails.application.credentials
     
-        encrypted = cipher.update(data) + cipher.final
-    end
+    cipher = OpenSSL::Cipher::AES128.new(:CBC).encrypt
+    cipher.key = Base64.decode64(credentials.dig(:crypto, :aes_key))
+    cipher.iv = Base64.decode64(credentials.dig(:crypto, :aes_iv))
 
-    def decrypt(data)
-        secret = Rails.application.config_for :secrets
+    encrypted = cipher.update(data) + cipher.final
+  end
 
-        decipher = OpenSSL::Cipher::AES128.new(:CBC).decrypt
-        decipher.key = Base64.decode64(secret['aes_key'])
-        decipher.iv = Base64.decode64(secret['aes_iv'])
+  def decrypt(data)
+    credentials = Rails.application.credentials
     
-        decrypted = decipher.update(data) + decipher.final
-    end
+    decipher = OpenSSL::Cipher::AES128.new(:CBC).decrypt
+    decipher.key = Base64.decode64(credentials.dig(:crypto, :aes_key))
+    decipher.iv = Base64.decode64(credentials.dig(:crypto, :aes_iv))
+
+    decrypted = decipher.update(data) + decipher.final
+  end
 end

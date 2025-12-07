@@ -21,3 +21,20 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
+# Ignore Rails 8 storage directory
+/storage/*
+!/storage/.keep
+
+# Ignore vendor JavaScript (managed by importmap)
+/vendor/javascript
+
+# Ignore migration backup
+/.rails5_backup
+
+# Ignore Claude Code directory
+/.claude
+

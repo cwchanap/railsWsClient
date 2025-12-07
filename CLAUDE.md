@@ -1,0 +1,106 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is a Rails 5.1 blog application with user authentication, article management, and email verification. The application uses SQLite3 as the database and Bootstrap for styling.
+
+## Development Commands
+
+### Server
+```bash
+bundle exec rails server       # Start development server (default: http://localhost:3000)
+```
+
+### Database
+```bash
+bundle exec rake db:migrate    # Run pending migrations
+bundle exec rake db:schema:load # Load schema from db/schema.rb
+bundle exec rake db:seed       # Seed the database
+bundle exec rake db:reset      # Drop, create, load schema, and seed
+```
+
+### Testing
+```bash
+bundle exec rake test          # Run all tests
+bundle exec rake test TEST=test/controllers/user_controller_test.rb  # Run specific test file
+```
+
+### Console
+```bash
+bundle exec rails console      # Interactive Rails console
+```
+
+### Setup
+```bash
+bundle install                 # Install dependencies
+```
+
+## Architecture
+
+### Authentication & Session Management
+
+- Session-based authentication using Rails sessions
+- `session[:curr_userid]` stores the authenticated user ID
+- The `Auth` concern (app/controllers/concerns/auth.rb) provides the `auth` method to protect routes
+- Login/logout handled by `LoginController`
+- User passwords are stored as plain text in the database (security concern)
+
+### Encryption & Email Verification
+
+- The `Crypto` concern (app/controllers/concerns/crypto.rb) provides AES-128 CBC encryption/decryption
+- Encryption keys stored in `config/secrets.yml` (aes_key and aes_iv)
+- Email verification flow:
+  1. User signs up via `UserController#create`
+  2. `SignUpMailer.validate_email` sends verification email with encrypted username in URL
+  3. User clicks link to `UserController#validate` which decrypts username and sets `isValidate: true`
+- Users must verify email before full access (enforced by `isValidate` field)
+
+### Models & Associations
+
+- **User**: has_many :articles, has_many :comments
+  - Validations: username and password both minimum 8 characters
+  - Fields: username (unique), password, email, isValidate (boolean)
+- **Article**: has_many :comments (dependent: :delete_all)
+  - Validations: title minimum 5 characters, text presence
+  - Fields: title, text, status (boolean), user_id
+- **Comment**: belongs_to :article, belongs_to :user
+  - Fields: body, article_id, user_id
+
+### Controllers
+
+- **LoginController**: Handles login/logout via sessions and cookies
+- **UserController**: User registration, email verification, admin user management
+- **ArticlesController**: CRUD for articles (nested comments resources)
+- **CommentsController**: CRUD for comments within articles
+- **AdminController**: Admin interface (requires `/heaven` page access)
+- **MainController**: Contains the "heaven" admin page
+
+### Routing Patterns
+
+- Nested resources: `articles/:article_id/comments` for comment CRUD
+- Custom routes within resources: `articles/:article_id/toggle` for article status toggle
+- Validation endpoint: `GET /validate?key=<encrypted_username>`
+- Admin: `GET /admin/index` and `GET /heaven`
+
+### Timezone Configuration
+
+The application uses Hong Kong Time (HKT) as configured in recent commits.
+
+## Security Considerations
+
+- Passwords are stored in plain text - consider using bcrypt and Rails' `has_secure_password`
+- The `Crypto` module encryption keys are in `config/secrets.yml` - ensure this file is in `.gitignore`
+- Email verification link contains encrypted username - ensure secure key management
+- The admin username 'admin' is filtered from the admin page display
+
+## Dependencies & Stack
+
+- Rails 5.1.3
+- SQLite3 1.3.13
+- Bootstrap 4.3.1
+- jQuery
+- Puma web server
+- Action Mailer for email (SignUpMailer)
+- Asset pipeline with Sass, CoffeeScript, and Uglifier
