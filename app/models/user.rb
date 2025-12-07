@@ -1,6 +1,25 @@
 class User < ApplicationRecord
-    has_many :articles
-    has_many :comments
-    validates :username, presence: true, length: { minimum: 8, message: "username must be at least %{count} characters long" }
-    validates :password, presence: true, length: { minimum: 8, message: "password must be at least %{count} characters long" }
+  # Rails 8 built-in authentication uses has_secure_password
+  # This requires bcrypt gem and a password_digest column
+  has_secure_password
+  
+  has_many :articles, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  
+  validates :username, presence: true, 
+                       length: { minimum: 8, message: "must be at least %{count} characters long" },
+                       uniqueness: { case_sensitive: false }
+  validates :email, presence: true, 
+                    format: { with: URI::MailTo::EMAIL_REGEXP },
+                    uniqueness: { case_sensitive: false }
+  validates :password, length: { minimum: 8, message: "must be at least %{count} characters long" }, 
+                       if: -> { new_record? || !password.nil? }
+  
+  # Normalize email before saving
+  normalizes :email, with: ->(email) { email.strip.downcase }
+  normalizes :username, with: ->(username) { username.strip }
+  
+  # Email validation status
+  scope :validated, -> { where(isValidate: true) }
+  scope :pending_validation, -> { where(isValidate: false) }
 end
