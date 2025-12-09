@@ -1,0 +1,112 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-lint:
+    name: Build & Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Node dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build TypeScript
+        run: bun run build
+
+      - name: Lint TypeScript
+        run: bun run lint:ts
+
+      - name: Check TypeScript formatting
+        run: bun run format:check
+
+      - name: Type check TypeScript
+        run: bun run typecheck
+
+      - name: Lint Ruby
+        run: bundle exec rubocop
+
+  test-typescript:
+    name: TypeScript Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Node dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run TypeScript tests
+        run: bun run test:ts
+
+      - name: Generate coverage report
+        run: bun run test:ts:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          files: ./coverage/lcov.info
+          flags: typescript
+          name: typescript-coverage
+          fail_ci_if_error: false
+
+  test-ruby:
+    name: Ruby Tests
+    runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Install SQLite3
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+
+      - name: Set up database
+        run: |
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+
+      - name: Run Ruby tests
+        run: bundle exec rake test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ruby-test-results
+          path: test/reports/
+          if-no-files-found: ignore
