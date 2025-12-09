@@ -188,3 +188,35 @@ The application uses Hong Kong Time (HKT) as configured in recent commits.
 - VSCode settings in `.vscode/settings.json`
 - Format on save enabled for both TypeScript and Ruby
 - Auto-fix on save for ESLint
+
+## CI/CD
+
+### GitHub Actions Workflow
+
+The project includes a comprehensive CI pipeline that runs on every push and pull request:
+
+**Job 1: Build & Lint** (`.github/workflows/ci.yml`)
+- Builds TypeScript code with Bun
+- Lints TypeScript with ESLint
+- Checks TypeScript formatting with Prettier
+- Type checks TypeScript code
+- Lints Ruby code with RuboCop
+
+**Job 2: TypeScript Tests**
+- Runs TypeScript unit tests with Bun test runner
+- Generates code coverage reports
+- Uploads coverage to Codecov (optional)
+- Fast execution with Bun's native test runner
+
+**Job 3: Ruby Tests**
+- Sets up Ruby 3.2 environment
+- Installs SQLite3 dependencies
+- Sets up test database
+- Runs Rails test suite
+- Uploads test results as artifacts
+
+**Features:**
+- Jobs run in parallel for fast feedback
+- Dependency caching for faster builds
+- Fails fast on linting or test errors
+- Comprehensive coverage of all code quality checks
