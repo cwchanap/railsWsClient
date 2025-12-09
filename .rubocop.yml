@@ -1,0 +1,64 @@
+AllCops:
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'storage/**/*'
+
+# Style preferences
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+# Layout preferences
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'config/**/*'
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+# Metrics
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - 'test/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/**/*'
+    - 'test/**/*'
+    - 'app/views/**/*'
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - 'test/**/*'
+
+# Rails specific
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+# Naming
+Naming/VariableNumber:
+  Enabled: false

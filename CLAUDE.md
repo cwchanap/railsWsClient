@@ -20,6 +20,32 @@ bun run build                  # Build TypeScript once
 bun run dev                    # Watch and rebuild TypeScript on changes
 ```
 
+### Linting & Formatting
+```bash
+# TypeScript/JavaScript
+bun run lint:ts                # Lint TypeScript files with ESLint
+bun run lint:ts:fix            # Fix auto-fixable TypeScript linting issues
+bun run format                 # Format TypeScript files with Prettier
+bun run format:check           # Check TypeScript formatting
+bun run typecheck              # Run TypeScript type checking
+
+# Ruby
+bun run lint:ruby              # Lint Ruby files with RuboCop
+bun run lint:ruby:fix          # Fix auto-fixable Ruby linting issues
+bundle exec rubocop            # Run RuboCop directly
+
+# Both
+bun run lint                   # Lint both TypeScript and Ruby
+bun run lint:fix               # Fix both TypeScript and Ruby
+```
+
+### Pre-commit Hooks
+The project uses Husky and lint-staged to automatically lint and format code before commits:
+- TypeScript/JavaScript files: Auto-fixed with ESLint and formatted with Prettier
+- Ruby files: Auto-fixed with RuboCop
+- Hooks run only on staged files for fast performance
+- Setup runs automatically on `bun install` via the `prepare` script
+
 ### Database
 ```bash
 bundle exec rake db:migrate    # Run pending migrations
@@ -123,3 +149,21 @@ The application uses Hong Kong Time (HKT) as configured in recent commits.
 - Stimulus controllers for interactive components
 - Turbo for SPA-like navigation
 - ES modules with source maps for debugging
+
+### Code Quality Tools
+
+**TypeScript/JavaScript:**
+- ESLint 9.x with TypeScript plugin for linting
+- Prettier 3.x for code formatting
+- TypeScript compiler for type checking
+- Configuration: `eslint.config.js`, `.prettierrc`
+
+**Ruby:**
+- RuboCop for linting and formatting
+- RuboCop Rails extension for Rails-specific rules
+- Configuration: `.rubocop.yml`
+
+**Editor Integration:**
+- VSCode settings in `.vscode/settings.json`
+- Format on save enabled for both TypeScript and Ruby
+- Auto-fix on save for ESLint

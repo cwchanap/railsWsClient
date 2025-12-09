@@ -1,0 +1,8 @@
+node_modules
+app/assets/builds
+vendor
+*.lock
+Gemfile.lock
+bun.lock
+package-lock.json
+yarn.lock
