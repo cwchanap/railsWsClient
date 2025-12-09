@@ -5,10 +5,38 @@
   "scripts": {
     "build": "bun build app/javascript/application.ts --outdir=app/assets/builds --entry-naming=[name].js --target=browser --sourcemap=external",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
-    "dev": "bun build app/javascript/application.ts --outdir=app/assets/builds --entry-naming=[name].js --target=browser --sourcemap=external --watch"
+    "dev": "bun build app/javascript/application.ts --outdir=app/assets/builds --entry-naming=[name].js --target=browser --sourcemap=external --watch",
+    "lint": "bun run lint:ts && bun run lint:ruby",
+    "lint:ts": "eslint 'app/javascript/**/*.{ts,js}'",
+    "lint:ruby": "bundle exec rubocop",
+    "lint:fix": "bun run lint:ts:fix && bun run lint:ruby:fix",
+    "lint:ts:fix": "eslint 'app/javascript/**/*.{ts,js}' --fix",
+    "lint:ruby:fix": "bundle exec rubocop -A",
+    "format": "prettier --write 'app/javascript/**/*.{ts,js,json}'",
+    "format:check": "prettier --check 'app/javascript/**/*.{ts,js,json}'",
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.rb": [
+      "bundle exec rubocop -A"
+    ]
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.49.0",
+    "@typescript-eslint/parser": "^8.49.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
     "typescript": "^5.9.3"
   },
   "dependencies": {

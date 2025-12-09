@@ -42,3 +42,6 @@
 # Ignore Claude Code directory
 /.claude
 
+# Ignore Husky internal files
+/.husky/_
+
