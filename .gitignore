@@ -29,7 +29,11 @@
 /storage/*
 !/storage/.keep
 
-# Ignore vendor JavaScript (managed by importmap)
+# Ignore bundled JavaScript and CSS (built with Bun)
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+# Ignore vendor JavaScript (Hotwire dependencies)
 /vendor/javascript
 
 # Ignore migration backup

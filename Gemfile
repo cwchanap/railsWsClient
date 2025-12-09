@@ -10,9 +10,9 @@ gem "sqlite3", ">= 2.1"
 # Web Server
 gem "puma", ">= 6.0"
 
-# JavaScript & CSS bundling (Rails 8 default: Propshaft + Importmap)
+# JavaScript & CSS bundling (Using Bun with TypeScript)
 gem "propshaft"        # Asset pipeline replacement for Sprockets
-gem "importmap-rails"  # ES modules without bundling
+gem "jsbundling-rails" # JavaScript bundling with Bun
 
 # Hotwire - default for Rails 7+
 gem "turbo-rails"      # SPA-like page acceleration
