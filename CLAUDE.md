@@ -46,18 +46,39 @@ The project uses Husky and lint-staged to automatically lint and format code bef
 - Hooks run only on staged files for fast performance
 - Setup runs automatically on `bun install` via the `prepare` script
 
+### Testing
+```bash
+# TypeScript/JavaScript (using Bun's built-in test runner)
+bun run test:ts              # Run TypeScript tests
+bun run test:ts:watch        # Watch mode for development
+bun run test:ts:coverage     # Run with coverage report
+
+# Ruby (using Rails test framework)
+bun run test:ruby            # Run Ruby/Rails tests
+bundle exec rake test        # Run Ruby tests directly
+
+# Both
+bun test                     # Run both TypeScript and Ruby tests
+```
+
+**Test Structure:**
+- TypeScript tests: `app/javascript/__tests__/**/*.test.ts`
+- Ruby tests: `test/**/*_test.rb`
+- Test setup: `test-setup.ts` (preloaded for DOM environment)
+- Configuration: `bunfig.toml`
+
+**Features:**
+- Bun's built-in test runner (Jest-compatible API)
+- JSDOM for DOM testing in Node environment
+- Coverage reporting with text and lcov formats
+- Fast execution (517ms for full TypeScript suite)
+
 ### Database
 ```bash
 bundle exec rake db:migrate    # Run pending migrations
 bundle exec rake db:schema:load # Load schema from db/schema.rb
 bundle exec rake db:seed       # Seed the database
 bundle exec rake db:reset      # Drop, create, load schema, and seed
-```
-
-### Testing
-```bash
-bundle exec rake test          # Run all tests
-bundle exec rake test TEST=test/controllers/user_controller_test.rb  # Run specific test file
 ```
 
 ### Console
