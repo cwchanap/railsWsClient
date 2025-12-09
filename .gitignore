@@ -45,3 +45,6 @@
 # Ignore Husky internal files
 /.husky/_
 
+# Ignore test coverage reports
+/coverage
+
