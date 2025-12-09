@@ -4,13 +4,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Rails 5.1 blog application with user authentication, article management, and email verification. The application uses SQLite3 as the database and Bootstrap for styling.
+This is a Rails 8.1 blog application with user authentication, article management, and email verification. The application uses SQLite3 as the database, Bootstrap for styling, and TypeScript (compiled with Bun) for frontend code.
 
 ## Development Commands
 
 ### Server
 ```bash
 bundle exec rails server       # Start development server (default: http://localhost:3000)
+bin/dev                        # Start both Rails server and Bun watcher (uses Procfile.dev)
+```
+
+### TypeScript/JavaScript
+```bash
+bun run build                  # Build TypeScript once
+bun run dev                    # Watch and rebuild TypeScript on changes
 ```
 
 ### Database
@@ -97,10 +104,22 @@ The application uses Hong Kong Time (HKT) as configured in recent commits.
 
 ## Dependencies & Stack
 
-- Rails 5.1.3
-- SQLite3 1.3.13
-- Bootstrap 4.3.1
-- jQuery
+- Rails 8.1
+- Ruby 3.2+
+- SQLite3 2.x
+- Bootstrap 5.3
+- TypeScript 5.9.3 (compiled with Bun)
+- Bun 1.3.1 (JavaScript runtime and bundler)
 - Puma web server
+- Propshaft (asset pipeline)
+- jsbundling-rails (JavaScript bundling integration)
+- Hotwire (Turbo & Stimulus)
 - Action Mailer for email (SignUpMailer)
-- Asset pipeline with Sass, CoffeeScript, and Uglifier
+
+### Frontend Architecture
+
+- TypeScript source files in `app/javascript/`
+- Bun builds TypeScript to `app/assets/builds/application.js`
+- Stimulus controllers for interactive components
+- Turbo for SPA-like navigation
+- ES modules with source maps for debugging

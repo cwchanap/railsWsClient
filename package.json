@@ -1,5 +1,18 @@
 {
   "name": "railsWsClient",
   "private": true,
-  "dependencies": {}
+  "type": "module",
+  "scripts": {
+    "build": "bun build app/javascript/application.ts --outdir=app/assets/builds --entry-naming=[name].js --target=browser --sourcemap=external",
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "dev": "bun build app/javascript/application.ts --outdir=app/assets/builds --entry-naming=[name].js --target=browser --sourcemap=external --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.20"
+  }
 }
