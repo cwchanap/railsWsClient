@@ -22,7 +22,8 @@ describe("HelloController", () => {
   })
 
   test("controller is properly registered", () => {
-    const controllerName = application.router.modulesByIdentifier.get("hello")
-    expect(controllerName).toBeDefined()
+    // Verify controller is registered by checking if it has the expected behavior
+    expect(element.textContent).toBe("Hello World!")
+    expect(element.dataset.controller).toBe("hello")
   })
 })
