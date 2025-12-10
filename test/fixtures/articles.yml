@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  text: MyText
+  title: First Article
+  text: This is the first article text
   status: false
+  user: one
 
 two:
-  title: MyString
-  text: MyText
+  title: Second Article
+  text: This is the second article text
   status: false
+  user: two
