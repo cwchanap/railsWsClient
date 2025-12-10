@@ -2,7 +2,8 @@ require "base64"
 
 class SignUpMailer < ApplicationMailer
   include Crypto
-  default :from => "helloworld"
+
+  default from: "helloworld"
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -13,7 +14,7 @@ class SignUpMailer < ApplicationMailer
 
     encrypted = encrypt(username)
 
-    @validate_link = "http://#{host}/validate?key=#{Base64.encode64(encrypted)}".gsub('+', '%2B')
+    @validate_link = "http://#{host}/validate?key=#{Base64.encode64(encrypted)}".gsub("+", "%2B")
 
     mail to: address
   end

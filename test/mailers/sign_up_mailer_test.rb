@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class SignUpMailerTest < ActionMailer::TestCase
   test "validate_email" do
@@ -8,5 +8,4 @@ class SignUpMailerTest < ActionMailer::TestCase
     assert_equal ["from@example.com"], mail.from
     assert_match "Hi", mail.body.encoded
   end
-
 end

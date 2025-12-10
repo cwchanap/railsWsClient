@@ -1,6 +1,3 @@
-require:
-  - rubocop-rails
-
 AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 3.2
@@ -52,16 +49,18 @@ Metrics/AbcSize:
   Exclude:
     - 'test/**/*'
 
-# Rails specific
-Rails/I18nLocaleTexts:
-  Enabled: false
-
-Rails/OutputSafety:
-  Enabled: true
-
-Rails/SkipsModelValidations:
-  Enabled: false
+# Rails specific cops are handled by rubocop-rails gem
 
 # Naming
 Naming/VariableNumber:
+  Enabled: false
+
+Naming/MethodName:
+  Enabled: false
+
+Naming/PredicateMethod:
+  Enabled: false
+
+# Style
+Style/ClassVars:
   Enabled: false
