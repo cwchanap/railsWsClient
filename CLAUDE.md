@@ -220,3 +220,63 @@ The project includes a comprehensive CI pipeline that runs on every push and pul
 - Dependency caching for faster builds
 - Fails fast on linting or test errors
 - Comprehensive coverage of all code quality checks
+
+## Deployment
+
+### Render.com (Free Tier)
+
+The project is configured for easy deployment to Render's free tier with automatic setup.
+
+**Prerequisites:**
+- GitHub account
+- Render.com account (free)
+
+**Deployment Steps:**
+
+1. **Push to GitHub**
+   ```bash
+   git push origin main
+   ```
+
+2. **Create Render Account**
+   - Go to [render.com](https://render.com)
+   - Sign up with GitHub
+
+3. **Deploy from Dashboard**
+   - Click "New +" → "Blueprint"
+   - Connect your GitHub repository
+   - Render auto-detects `render.yaml`
+   - Click "Apply"
+
+4. **Set Environment Variables** (in Render Dashboard)
+   - `RAILS_MASTER_KEY`: Copy from `config/master.key`
+   - Other variables are auto-configured from `render.yaml`
+
+5. **Deploy!**
+   - Render automatically builds and deploys
+   - First deploy takes ~5-10 minutes
+   - Subsequent deploys are faster with caching
+
+**What Gets Created:**
+- Web service (Rails app) on free tier
+- PostgreSQL database (free, 90 days then $7/month)
+- Automatic HTTPS
+- Auto-deploy on git push
+
+**Free Tier Limits:**
+- 750 instance-hours/month
+- Services spin down after inactivity
+- ~30 second wake-up time on first request
+- Perfect for demos and personal projects
+
+**Files for Deployment:**
+- `render.yaml` - Service configuration
+- `bin/render-build.sh` - Build script (installs Bun, builds TypeScript)
+- `config/database.yml` - Configured for PostgreSQL in production
+- `Gemfile` - Includes `pg` gem for production
+
+**Post-Deployment:**
+- Your app will be at: `https://railswsclient.onrender.com`
+- Database runs automatically
+- Assets are pre-compiled during build
+- TypeScript is built with Bun
