@@ -1,58 +1,52 @@
 class UserController < ApplicationController
-    include Crypto
+  include Crypto
 
-    def new
-    end
+  def index
+    @users = User.all
+  end
 
-    def index
-        @users = User.all
-    end
+  def new; end
 
-    def create
-        begin
-            @user = User.new(user_params)
-            @user.isValidate = false
+  def create
+    @user = User.new(user_params)
+    @user.isValidate = false
 
-            if @user.save!
-                SignUpMailer.validate_email(@user.username, @user.email, request.host_with_port).deliver_later!
-                redirect_to user_mail_path(:user_id => @user.id)
-            else
-                raise "Create User Failed!"
-            end
+    raise "Create User Failed!" unless @user.save!
 
-        rescue ActiveRecord::RecordNotUnique
-            render :json => {:error => true, :message => "Username is already in use"}
-        rescue ActiveRecord::RecordInvalid
-            render :json => {:error => true, :message => @@err_user_invalid}            
-        end
-    end
+    SignUpMailer.validate_email(@user.username, @user.email, request.host_with_port).deliver_later!
+    redirect_to user_mail_path(user_id: @user.id)
+  rescue ActiveRecord::RecordNotUnique
+    render json: { error: true, message: "Username is already in use" }
+  rescue ActiveRecord::RecordInvalid
+    render json: { error: true, message: @@err_user_invalid }
+  end
 
-    def destroy
-        @user = User.find(params[:id])
-        @user.destroy
-       
-        redirect_to user_index_path
-    end
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
 
-    def mail
-        @user = User.find(params[:user_id])
-    end
+    redirect_to user_index_path
+  end
 
-    def validate
-        begin   
-            param = request.query_parameters
-            username = decrypt(Base64.decode64(param['key']))
+  def mail
+    @user = User.find(params[:user_id])
+  end
 
-            @user = User.find_by(:username => username)
-            @user.update(isValidate: true)
-        rescue
-            puts 'Hello'
-        end
-    end
+  def validate
+    param = request.query_parameters
+    username = decrypt(Base64.decode64(param["key"]))
 
-    private
-        @@err_user_invalid = "Record Invalid.<br>Username must be at least 8 characters.<br>Password must be at least 8 charcters."
-        def user_params
-            params.require(:user).permit(:username, :password, :email)
-        end
+    @user = User.find_by(username: username)
+    @user.update(isValidate: true)
+  rescue StandardError
+    Rails.logger.debug "Hello"
+  end
+
+  private
+
+  @@err_user_invalid = "Record Invalid.<br>Username must be at least 8 characters." \
+                       "<br>Password must be at least 8 charcters."
+  def user_params
+    params.expect(user: %i[username password email])
+  end
 end
