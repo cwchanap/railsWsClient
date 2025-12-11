@@ -1,36 +1,39 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h1>Manage User</h1>
-    </div>
+<div class="container mx-auto px-4 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Manage User</h1>
   </div>
 
-  <div class="row-md">
-    <table class="table">
-      <thead class="thead-light"><tr>
-        <th scope="col">User</th>
-        <th scope="col"></th>        
-        <th scope="col"></th>
-        <th scope="col">Email</th>
-        <th scope="col">isVerified</th>
-        <th scope="col"></th>
-      </tr></thead>
-
-      <% @users.each do |user| %>
-        <% if user.username != 'admin' %>
-          <tr>
-            <td width="70%"><%= user.username %></td>
-            <td width="5%"></td>
-            <td width="5%"></td>
-            <td width="10%"><%= user.email %></td>
-            <td width="5%"><%= user.isValidate %></td>      
-            <td width="5%"><%= link_to 'Delete', user_path(user), method: :delete, class: "btn btn-primary"  %></td>
-          </tr>
+  <div class="overflow-x-auto bg-white shadow-md rounded-lg mb-6">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-100">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">User</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Email</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Verified</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @users.each do |user| %>
+          <% if user.username != 'admin' %>
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= user.username %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600"><%= user.email %></td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= user.isValidate ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+                  <%= user.isValidate %>
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <%= link_to 'Delete', user_path(user), method: :delete, class: "text-red-600 hover:text-red-900"  %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
+      </tbody>
     </table>
   </div>
 
-  <%= link_to 'Back', admin_index_path, class: "btn btn-info"%>
+  <%= link_to 'Back', admin_index_path, class: "bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 inline-block"%>
 
 </div>

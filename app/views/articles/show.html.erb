@@ -1,47 +1,53 @@
-<div class="container">
-  <table class="table table-striped">
-
-    <tr><td>
-      <strong>Title:</strong>
-      <%= @article.title %>
-      <div class='float-right'>
-        <strong>Post Time:</strong>
-        <%= changeTZ(@article.created_at) %>
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="p-6 border-b border-gray-200">
+      <div class="flex justify-between items-start">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2"><%= @article.title %></h2>
+        </div>
+        <div class="text-sm text-gray-600">
+          <strong>Post Time:</strong>
+          <%= changeTZ(@article.created_at) %>
+        </div>
       </div>
-    </td></tr>
-    
-    <tr><td>
-      <strong>Text:</strong>
-      <%= @article.text %>
-      <div class='float-right'>
-        <strong>Last Updated Time:</strong>
-        <%= changeTZ(@article.updated_at) %>
-      </div>      
-    </td></tr>
+    </div>
 
-    <tr><td>
-      <strong>Status:</strong>
-      <%= (@article.status == true) ? 'Open' : 'Closed' %>
-    </td></tr>
+    <div class="p-6 border-b border-gray-200">
+      <div class="flex justify-between items-start">
+        <div class="flex-1">
+          <p class="text-gray-700 whitespace-pre-wrap"><%= @article.text %></p>
+        </div>
+        <div class="text-sm text-gray-600 ml-4">
+          <strong>Updated:</strong>
+          <%= changeTZ(@article.updated_at) %>
+        </div>
+      </div>
+    </div>
 
-    <tr><td>
-      <h4>Comments</h4>
+    <div class="p-6 border-b border-gray-200">
+      <span class="px-3 py-1 text-sm font-semibold rounded-full <%= (@article.status == true) ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+        <%= (@article.status == true) ? 'Open' : 'Closed' %>
+      </span>
+    </div>
+
+    <div class="p-6">
+      <h3 class="text-xl font-bold text-gray-900 mb-4">Comments</h3>
       <%= render partial: "/comments/comment", collection: @article.comments %>
-    </td></tr>
-  </table>
-
-  <div class="row">
-    <% if @article.status %>
-      <div class="col"><%= button_to 'Add a comment', new_article_comment_path(@article.id), class: "btn btn-info", method: 'get' %></div>
-    <% else %>
-      <div class="col offset-md-4"><h1>Article is closed</h1></div>
-    <% end %> 
+    </div>
   </div>
-  <br>
-  <div class="row">
-    <div class="col">
-      <%= button_tag 'Edit', type: 'button', class: "btn btn-info", onclick: "redirect('#{edit_article_path}')" %>
-      <%= button_tag 'Back', type: 'button', class: "btn btn-info", onclick: "redirect('#{articles_path}')"%>
-    </div>  
+
+  <div class="mt-6">
+    <% if @article.status %>
+      <%= button_to 'Add a comment', new_article_comment_path(@article.id), class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700", method: 'get' %>
+    <% else %>
+      <div class="text-center py-4">
+        <h2 class="text-2xl font-bold text-gray-600">Article is closed</h2>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6 space-x-4">
+    <%= button_tag 'Edit', type: 'button', class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700", onclick: "redirect('#{edit_article_path}')" %>
+    <%= button_tag 'Back', type: 'button', class: "bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700", onclick: "redirect('#{articles_path}')"%>
   </div>
 </div>

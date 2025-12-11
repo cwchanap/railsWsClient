@@ -32,6 +32,9 @@ jobs:
       - name: Build TypeScript
         run: bun run build
 
+      - name: Build CSS
+        run: bun run build:css
+
       - name: Lint TypeScript
         run: bun run lint:ts
 
@@ -103,6 +106,9 @@ jobs:
 
       - name: Build JavaScript assets
         run: bun run build
+
+      - name: Build CSS assets
+        run: bun run build:css
 
       - name: Install SQLite3
         run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev

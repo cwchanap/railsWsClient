@@ -1,18 +1,17 @@
 
-<div class="container">
-  <br>
-  <br>
-  <div class="row">
-    <div class="col">
-      <% if @user %>
-        Hello, <strong><%= @user.username %></strong><br><br>
-        Your Email Address has been verified<br><br>
-      <% else %>
-        <h1>Do not play with this holy website</h1><br><br>
-      <% end %>
-    </div>
+<div class="container mx-auto px-4 py-20">
+  <div class="max-w-md mx-auto text-center">
+    <% if @user %>
+      <div class="bg-green-50 border border-green-200 rounded-lg p-8 mb-6">
+        <p class="text-lg text-gray-700 mb-4">Hello, <strong class="text-green-700"><%= @user.username %></strong></p>
+        <p class="text-xl font-semibold text-green-700">Your Email Address has been verified</p>
+      </div>
+    <% else %>
+      <div class="bg-red-50 border border-red-200 rounded-lg p-8 mb-6">
+        <h1 class="text-2xl font-bold text-red-700">Do not play with this holy website</h1>
+      </div>
+    <% end %>
+
+    <%= link_to 'Back to Login Page', root_path, class: "bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 inline-block"%>
   </div>
-
-  <%= link_to 'Back to Login Page', root_path, class: "btn btn-info"%>
-
 </div>

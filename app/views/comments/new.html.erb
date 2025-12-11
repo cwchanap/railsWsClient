@@ -1,30 +1,24 @@
-<div class="row">
+<div class="container mx-auto px-4 py-8 max-w-2xl">
   <% if @article.status %>
-    <div class="col-md-3"></div>
-    <div class="col-md-3">
-        <table class="table table-bordered">
-        <tr><th>
-            <h3>Add a comment:</h3>
-        </th></tr>
-        <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
-            <tr><td>
-            <%= form.label :body %><br>
-            <%= form.text_area :body, size: "50x10" %>
-            </tr></td>
-            <td>
-            <%= form.submit "Add", class: "btn btn-primary" %>
-            </td>
-        <% end %>
-        </table>
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h3 class="text-2xl font-bold mb-6 text-gray-900">Add a comment:</h3>
+      <%= form_with(model: [ @article, @article.comments.build ], local: true, class: 'space-y-4') do |form| %>
+        <div>
+          <%= form.label :body, class: 'block text-sm font-medium text-gray-700 mb-2' %>
+          <%= form.text_area :body, rows: 10, class: 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500' %>
+        </div>
+        <div>
+          <%= form.submit "Add", class: "bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+        </div>
+      <% end %>
     </div>
-    <div class="col-md-3"></div>
   <% else %>
-    <div class="col-md-3 offset-md-4"><h1>Article is closed</h1></div>
-  <% end %> 
-</div>
+    <div class="text-center py-8">
+      <h1 class="text-3xl font-bold text-gray-600">Article is closed</h1>
+    </div>
+  <% end %>
 
-<div class="row">
-  <div class="col-md-3 offset-md-3">
-    <%= button_to 'Back', article_path(@article.id), class: "btn btn-info", method: "get"%>
-  </div>  
+  <div class="mt-6">
+    <%= button_to 'Back', article_path(@article.id), class: "bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700", method: "get"%>
+  </div>
 </div>

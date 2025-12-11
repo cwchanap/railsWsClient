@@ -34,9 +34,7 @@ gem "jbuilder"
 # Reduces boot times through caching
 gem "bootsnap", require: false
 
-# CSS Framework
-gem "bootstrap", "~> 5.3"
-gem "sassc-rails"
+# CSS Framework - Using Tailwind CSS via Bun
 
 # Windows/JRuby timezone data
 gem "tzinfo-data", platforms: %i[windows jruby]
