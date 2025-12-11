@@ -1,15 +1,13 @@
-<table class="table">
-  <tr><td>
-    <strong>Commenter:</strong>
-    <%= getUserName(@article.user_id) %>
-    <div class='float-right'>
-      <strong>Post Time:</strong>
+<div class="border-l-4 border-blue-500 bg-gray-50 p-4 mb-4 rounded">
+  <div class="flex justify-between items-start mb-2">
+    <div class="font-semibold text-gray-700">
+      <%= getUserName(@article.user_id) %>
+    </div>
+    <div class="text-sm text-gray-500">
       <%= changeTZ(comment.created_at) %>
-    </div>    
-  </tr></td>
-
-  <tr><td>
-    <strong>Comment:</strong>
+    </div>
+  </div>
+  <div class="text-gray-800">
     <%= comment.body %>
-  </tr></td>
-</table>
+  </div>
+</div>

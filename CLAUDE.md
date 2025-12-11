@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Rails 8.1 blog application with user authentication, article management, and email verification. The application uses SQLite3 as the database, Bootstrap for styling, and TypeScript (compiled with Bun) for frontend code.
+This is a Rails 8.1 blog application with user authentication, article management, and email verification. The application uses SQLite3 as the database, Tailwind CSS for styling, and TypeScript (compiled with Bun) for frontend code.
 
 ## Development Commands
 
@@ -14,10 +14,13 @@ bundle exec rails server       # Start development server (default: http://local
 bin/dev                        # Start both Rails server and Bun watcher (uses Procfile.dev)
 ```
 
-### TypeScript/JavaScript
+### TypeScript/JavaScript & CSS
 ```bash
 bun run build                  # Build TypeScript once
+bun run build:css              # Build Tailwind CSS once
 bun run dev                    # Watch and rebuild TypeScript on changes
+bun run dev:css                # Watch and rebuild Tailwind CSS on changes
+bin/dev                        # Start Rails server, TypeScript watcher, and CSS watcher
 ```
 
 ### Linting & Formatting
@@ -154,7 +157,7 @@ The application uses Hong Kong Time (HKT) as configured in recent commits.
 - Rails 8.1
 - Ruby 3.2+
 - SQLite3 2.x
-- Bootstrap 5.3
+- Tailwind CSS 4.1 (processed with PostCSS)
 - TypeScript 5.9.3 (compiled with Bun)
 - Bun 1.3.1 (JavaScript runtime and bundler)
 - Puma web server
@@ -167,6 +170,8 @@ The application uses Hong Kong Time (HKT) as configured in recent commits.
 
 - TypeScript source files in `app/javascript/`
 - Bun builds TypeScript to `app/assets/builds/application.js`
+- Tailwind CSS source in `app/assets/stylesheets/application.tailwind.css`
+- PostCSS processes Tailwind CSS to `app/assets/builds/application.css`
 - Stimulus controllers for interactive components
 - Turbo for SPA-like navigation
 - ES modules with source maps for debugging

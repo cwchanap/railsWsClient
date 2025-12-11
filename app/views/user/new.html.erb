@@ -1,26 +1,27 @@
 
-<div class="row">
-  <div class="col-md-4 offset-md-4">
-    <h1>Sign Up</h1><br>
-    <%= form_with(model: User.new, url: user_index_path, id: 'signUp') do |f| %>
+<div class="flex justify-center items-start min-h-screen pt-20">
+  <div class="w-full max-w-md px-4">
+    <h1 class="text-3xl font-bold mb-6">Sign Up</h1>
+    <%= form_with(model: User.new, url: user_index_path, id: 'signUp', class: 'space-y-4') do |f| %>
 
-      <%= f.label :username %>
-      <%= f.text_field :username, class: 'form-control' %><br>
+      <%= f.label :username, class: 'block text-sm font-medium text-gray-700' %>
+      <%= f.text_field :username, class: 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500' %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %><br>
+      <%= f.label :password, class: 'block text-sm font-medium text-gray-700' %>
+      <%= f.password_field :password, class: 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500' %>
 
-      <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %><br>
+      <%= f.label :email, class: 'block text-sm font-medium text-gray-700' %>
+      <%= f.email_field :email, class: 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500' %>
 
-      <%= f.submit "Sign Up", class: "btn btn-primary" %>
+      <div class="flex gap-4">
+        <%= f.submit "Sign Up", class: "flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
 
-      <%= button_tag "Back", type: "button", class: "btn btn-primary", onclick: "redirect('#{root_path}')" %>
+        <%= button_tag "Back", type: "button", class: "flex-1 bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2", onclick: "redirect('#{root_path}')" %>
+      </div>
 
     <% end %>
 
-    <br>
-    <div id='signUpMsg'></div>
+    <div id='signUpMsg' class="mt-4"></div>
   </div>
 
 </div>

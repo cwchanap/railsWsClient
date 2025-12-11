@@ -16,6 +16,9 @@ bun install --frozen-lockfile
 # Build TypeScript assets
 bun run build
 
+# Build CSS assets
+bun run build:css
+
 # Precompile assets (if using asset pipeline)
 bundle exec rake assets:precompile
 bundle exec rake assets:clean

@@ -1,44 +1,48 @@
 
-<h1>Edit article</h1>
- 
-<%= form_with(model: @article, local: true) do |form| %>
- 
-  <% if @article.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@article.errors.count, "error") %> prohibited
-        this article from being saved:
-      </h2>
-      <ul>
-        <% @article.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-3xl font-bold mb-6 text-gray-900">Edit article</h1>
 
-  <table class="table">
-    <% if @article.status %>
-      <tr><td>
-        <%= form.label :title %><br>
-        <%= form.text_field :title, size: '150' %>
-      </td></tr>
-    
-      <tr><td>
-        <%= form.label :text %><br>
-        <%= form.text_area :text, size: "150x20" %>
-      </td></tr>
-    
-      <td>
-        <%= form.submit %>
-      </td>
-    <% else %>  
-      <tr><td>
-        <h2>article is closed</h2>
-      </td></tr>
+    <%= form_with(model: @article, local: true, class: 'space-y-6') do |form| %>
+
+      <% if @article.errors.any? %>
+        <div class="bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
+          <strong class="font-bold text-lg">
+            <%= pluralize(@article.errors.count, "error") %> prohibited
+            this article from being saved:
+          </strong>
+          <ul class="mt-2 list-disc list-inside">
+            <% @article.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% if @article.status %>
+        <div>
+          <%= form.label :title, class: 'block text-sm font-medium text-gray-700 mb-2' %>
+          <%= form.text_field :title, class: 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500' %>
+        </div>
+
+        <div>
+          <%= form.label :text, class: 'block text-sm font-medium text-gray-700 mb-2' %>
+          <%= form.text_area :text, rows: 20, class: 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500' %>
+        </div>
+
+        <div>
+          <%= form.submit class: "bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+        </div>
+      <% else %>
+        <div class="text-center py-8">
+          <h2 class="text-2xl font-bold text-gray-600">Article is closed</h2>
+        </div>
+      <% end %>
+
     <% end %>
-  </table>
+  </div>
 
-<% end %>
- 
-<%= link_to 'Back', articles_path %>
+  <div class="mt-6">
+    <%= link_to 'Back', articles_path, class: "text-blue-600 hover:text-blue-900 font-medium" %>
+  </div>
+</div>
