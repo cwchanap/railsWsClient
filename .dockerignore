@@ -1,0 +1,12 @@
+.git
+.github
+.claude
+.husky
+.vscode
+cloudflare
+coverage
+log/*
+tmp/*
+storage/*.sqlite3
+node_modules
+config/master.key
