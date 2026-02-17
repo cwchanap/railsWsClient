@@ -48,3 +48,7 @@
 # Ignore test coverage reports
 /coverage
 
+# Cloudflare Worker
+/cloudflare/node_modules
+/cloudflare/.wrangler
+
