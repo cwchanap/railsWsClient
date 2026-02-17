@@ -6,7 +6,7 @@ gem "rails", "~> 8.0"
 # Database
 # Note: sqlite3 2.x is compatible with Rails 8
 gem "pg", "~> 1.5", group: :production
-gem "sqlite3", ">= 2.1", group: %i[development test]
+gem "sqlite3", ">= 2.1"
 
 # Web Server
 gem "puma", ">= 6.0"
