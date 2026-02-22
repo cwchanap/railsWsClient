@@ -48,6 +48,10 @@
 # Ignore test coverage reports
 /coverage
 
+# Environment variables (never commit credentials)
+.env
+.env.*
+
 # Cloudflare Worker
 /cloudflare/node_modules
 /cloudflare/.wrangler

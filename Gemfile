@@ -4,9 +4,8 @@ source "https://rubygems.org"
 gem "rails", "~> 8.0"
 
 # Database
-# Note: sqlite3 2.x is compatible with Rails 8
 gem "pg", "~> 1.5", group: :production
-gem "sqlite3", ">= 2.1"
+gem "sqlite3", ">= 2.1", groups: %i[development test]
 
 # Web Server
 gem "puma", ">= 6.0"
