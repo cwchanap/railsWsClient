@@ -28,7 +28,7 @@
               <%= link_to 'Show', article_path(article), class: "text-blue-600 hover:text-blue-900" %>
               <%= link_to 'Edit', edit_article_path(article), class: "text-blue-600 hover:text-blue-900" if (isAdmin || isUserMatch(article.user_id)) %>
               <%= link_to (article.status) ? 'Close' : 'Open', article_toggle_path(article), class: "text-blue-600 hover:text-blue-900" if isAdmin %>
-              <%= button_to 'Delete', article_path(article), method: :delete, class: "text-red-600 hover:text-red-900" if (isAdmin || isUserMatch(article.user_id)) %>
+              <%= link_to 'Delete', article_path(article), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "text-red-600 hover:text-red-900" if (isAdmin || isUserMatch(article.user_id)) %>
             </td>
           </tr>
         <% end %>
