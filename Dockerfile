@@ -5,7 +5,7 @@ FROM ruby:3.2-slim AS build
 
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    build-essential curl git libsqlite3-dev libyaml-dev pkg-config unzip && \
+    build-essential curl git libpq-dev libyaml-dev pkg-config unzip && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Bun
@@ -45,7 +45,7 @@ FROM ruby:3.2-slim
 
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    libsqlite3-0 curl && \
+    libpq5 curl && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -54,8 +54,7 @@ WORKDIR /app
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /app /app
 
-# Create storage directory for SQLite
-RUN mkdir -p storage tmp/pids log
+RUN mkdir -p tmp/pids log
 
 # Make entrypoint executable
 RUN chmod +x bin/docker-entrypoint.sh

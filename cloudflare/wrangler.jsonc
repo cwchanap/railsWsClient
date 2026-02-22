@@ -28,12 +28,5 @@
       "new_sqlite_classes": ["RailsContainer"],
       "tag": "v1"
     }
-  ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "railswsclient-db",
-      "database_id": "1409e3af-f20a-4993-a303-c18b444fbf77"
-    }
   ]
 }

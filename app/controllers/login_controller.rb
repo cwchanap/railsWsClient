@@ -2,9 +2,11 @@ class LoginController < ApplicationController
   def index; end
 
   def new
-    @user = User.find_by!(user_params)
+    up = user_params
+    @user = User.find_by!(username: up[:username])
+    raise ActiveRecord::RecordNotFound unless @user.authenticate(up[:password])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: true, message: "invalid User" }
+    render json: { error: true, message: "invalid User" }, status: :unprocessable_entity
   else
     cookies[:username] = @user.username
     session[:curr_userid] = @user.id
