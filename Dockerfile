@@ -8,9 +8,11 @@ RUN apt-get update -qq && \
     build-essential curl git libpq-dev libyaml-dev pkg-config unzip && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Bun with pinned version
+# Install Bun with pinned version and SHA-256 verification
 ENV BUN_VERSION=1.3.9
+ENV BUN_SHA256=4680e80e44e32aa718560ceae85d22ecfbf2efb8f3641782e35e4b7efd65a1aa
 RUN curl -fsSL https://github.com/oven-sh/bun/releases/download/bun-v${BUN_VERSION}/bun-linux-x64.zip -o bun.zip && \
+    echo "${BUN_SHA256}  bun.zip" | sha256sum -c - && \
     unzip bun.zip -d /usr/local && \
     rm bun.zip && \
     ln -s /usr/local/bun-linux-x64/bun /usr/local/bin/bun
@@ -73,7 +75,7 @@ ENV RAILS_LOG_TO_STDOUT=1
 ENV PORT=8080
 ENV HOME=/app
 # SECRET_KEY_BASE is passed at runtime, not hardcoded
-ENV SECRET_KEY_BASE
+ENV SECRET_KEY_BASE=""
 
 EXPOSE 8080
 
