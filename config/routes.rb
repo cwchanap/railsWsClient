@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  post "login/new"
-  delete "login/destroy"
+  post "login", to: "login#create"
+  delete "login", to: "login#destroy"
 
   get "admin/index"
   get "heaven" => "main#heaven"

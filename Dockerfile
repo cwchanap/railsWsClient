@@ -8,10 +8,14 @@ RUN apt-get update -qq && \
     build-essential curl git libpq-dev libyaml-dev pkg-config unzip && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
-ENV BUN_INSTALL="/root/.bun"
-ENV PATH="$BUN_INSTALL/bin:$PATH"
+# Install Bun with pinned version
+ENV BUN_VERSION=1.3.9
+RUN curl -fsSL https://github.com/oven-sh/bun/releases/download/bun-v${BUN_VERSION}/bun-linux-x64.zip -o bun.zip && \
+    unzip bun.zip -d /usr/local && \
+    rm bun.zip && \
+    ln -s /usr/local/bun-linux-x64/bun /usr/local/bin/bun
+ENV BUN_INSTALL="/usr/local/bun-linux-x64"
+ENV PATH="$BUN_INSTALL:$PATH"
 
 WORKDIR /app
 
@@ -48,13 +52,18 @@ RUN apt-get update -qq && \
     libpq5 curl && \
     rm -rf /var/lib/apt/lists/*
 
+# Create non-root user
+RUN groupadd -r app --gid=1000 && \
+    useradd -r -g app --uid=1000 --home-dir=/app --shell=/sbin/nologin app
+
 WORKDIR /app
 
 # Copy built application from build stage
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /app /app
+COPY --from=build --chown=app:app /usr/local/bundle /usr/local/bundle
+COPY --from=build --chown=app:app /app /app
 
-RUN mkdir -p tmp/pids log
+RUN mkdir -p tmp/pids log && \
+    chown -R app:app tmp log
 
 # Make entrypoint executable
 RUN chmod +x bin/docker-entrypoint.sh
@@ -62,8 +71,13 @@ RUN chmod +x bin/docker-entrypoint.sh
 ENV RAILS_ENV=production
 ENV RAILS_LOG_TO_STDOUT=1
 ENV PORT=8080
-ENV SECRET_KEY_BASE=3f9df7a4b6d186a338b4fb068b273707b517971edef702e9653cea07cb59250104d3e10c98b4fb44f603b00d8c9686e400ee1b31d99389cc25c7e0bf83cdd8f7
+ENV HOME=/app
+# SECRET_KEY_BASE is passed at runtime, not hardcoded
+ENV SECRET_KEY_BASE
 
 EXPOSE 8080
 
-CMD ["bash", "-c", "bundle exec rake db:prepare && exec bundle exec puma -C config/puma.rb"]
+# Switch to non-root user
+USER app
+
+ENTRYPOINT ["bin/docker-entrypoint.sh"]
