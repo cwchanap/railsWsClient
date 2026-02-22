@@ -23,4 +23,12 @@ class LoginControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
     assert_equal true, response.parsed_body["error"]
   end
+
+  test "logout clears session and redirects to root" do
+    post login_url, params: { user: { username: "testuser1", password: "password123" } }
+    assert_equal users(:one).id, session[:curr_userid]
+    delete logout_url
+    assert_redirected_to root_path
+    assert_nil session[:curr_userid]
+  end
 end
