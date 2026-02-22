@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def clear_session_and_redirect
     cookies.delete(:username)
-    session[:curr_userid] = nil
+    session.delete(:curr_userid)
     redirect_to root_path
   end
 end
