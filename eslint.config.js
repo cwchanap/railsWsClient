@@ -45,6 +45,7 @@ export default [
       "vendor/**",
       "*.config.js",
       "bun.lock",
+      "cloudflare/**",
     ],
   },
 ]
