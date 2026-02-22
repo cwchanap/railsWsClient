@@ -7,8 +7,7 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@cloudflare/containers": "^0.0.30",
-    "hono": "^4.11.1"
+    "@cloudflare/containers": "^0.0.30"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
