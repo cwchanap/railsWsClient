@@ -75,7 +75,7 @@ ENV RAILS_LOG_TO_STDOUT=1
 ENV PORT=8080
 ENV HOME=/app
 # SECRET_KEY_BASE is passed at runtime, not hardcoded
-ENV SECRET_KEY_BASE=""
+
 
 EXPOSE 8080
 
