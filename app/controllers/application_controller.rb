@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
-  # Rails 8 uses :exception by default, but you can also use :null_session for APIs
+  include ApplicationHelper
+
+  # Rails 8 uses :exception by default
   # protect_from_forgery with: :exception  # This is now the default
 
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
