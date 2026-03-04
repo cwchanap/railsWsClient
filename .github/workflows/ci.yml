@@ -118,7 +118,7 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:schema:load
 
-      - name: Run Ruby tests
+      - name: Run Ruby tests with coverage
         run: bundle exec rake test
 
       - name: Upload test results
@@ -133,7 +133,8 @@ jobs:
         uses: codecov/codecov-action@v4
         if: always()
         with:
-          files: ./coverage/.resultset.json
+          files: ./coverage/coverage.xml
           flags: ruby
           name: ruby-coverage
           fail_ci_if_error: false
+          verbose: true
