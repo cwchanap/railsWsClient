@@ -17,10 +17,12 @@
     "format:check": "prettier --check 'app/javascript/**/*.{ts,js,json}'",
     "typecheck": "tsc --noEmit",
     "test": "bun test && bundle exec rake test",
+    "test:coverage": "bun test --coverage && COVERAGE=true bundle exec rake test",
     "test:ts": "bun test",
     "test:ts:watch": "bun test --watch",
     "test:ts:coverage": "bun test --coverage",
     "test:ruby": "bundle exec rake test",
+    "test:ruby:coverage": "COVERAGE=true bundle exec rake test",
     "prepare": "husky"
   },
   "lint-staged": {

@@ -1,3 +1,13 @@
+require "simplecov"
+
+SimpleCov.start "rails" do
+  add_filter "/bin/"
+  add_filter "/db/"
+  add_filter "/test/"
+  add_filter "/config/"
+  add_filter "/vendor/"
+end
+
 require File.expand_path("../config/environment", __dir__)
 require "rails/test_help"
 
