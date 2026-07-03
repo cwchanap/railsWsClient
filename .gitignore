@@ -56,3 +56,9 @@
 /cloudflare/node_modules
 /cloudflare/.wrangler
 
+
+
+# Secrets — never commit
+/config/secrets.yml
+/.env*
+!.env.example

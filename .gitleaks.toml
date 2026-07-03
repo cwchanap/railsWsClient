@@ -1,0 +1,14 @@
+# gitleaks configuration
+# Uses the default rule set bundled with gitleaks, plus allowlist for known
+# false positives in this repo. Run: `gitleaks git --log-opts="--all" .`
+
+[allowlist]
+description = "Repo-level allowlist for known-safe values"
+paths = [
+    # Rails credentials templates use ENV placeholders, never real secrets
+    '''config/credentials\.yml\.template''',
+]
+regexes = [
+    # Rails ENV placeholder pattern
+    '''<%= ENV\[.*?\] %>''',
+]
